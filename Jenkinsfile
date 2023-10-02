@@ -13,7 +13,7 @@ pipeline {
                     def destinationPath = '/var/www/html'
 
                     // Define the target server and SSH port
-                    def remoteServer = 'remote-server-hostname-or-ip'
+                    def remoteServer = '192.168.1.8'
                     def sshPort = 22 // Default SSH port is 22
 
                     // Use the sshAgent to securely execute SSH commands
