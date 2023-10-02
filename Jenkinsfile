@@ -22,7 +22,7 @@ pipeline {
 
         stage('Deploy to Testserver') {
             steps {
-                // Copy HTML files from the "test" branch to the test server.
+                // Copy HTML files from the "productie" branch to the test server.
                 sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Sam_main/index.html student@192.168.1.9:/var/www/html/'
             }
         }
