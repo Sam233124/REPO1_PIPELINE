@@ -1,21 +1,29 @@
 pipeline {
     agent any
-    
-    stages {
-        stage('Copy index.html to Apache Webserver') {
-            steps {
-                script {
-                    // SSH-credentials ID (configure this in Jenkins credentials)
-                    def sshCredentialsId = '74a84b86-0524-41f1-9c56-a63b2164a16b'
-                    
-                    // Doelserverinformatie
-                    def remoteServer = '192.168.1.8'
-                    def remoteUsername = 'student'
-                    def remotePassword = 'poepie'
 
-                    // SCP-commando met sshpass
-                    sh "sshpass -p ${remotePassword} scp -r /var/lib/jenkins/workspace/Pipeline_main/*.html ${remoteUsername}@${remoteServer}:/var/www/html/"
+    stages {
+        stage('Checkout from GitHub') {
+            steps {
+                // Check out your code from GitHub.
+                script {
+                    def scmVars = checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: 'main']], // You can change the branch as needed
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [
+                            [$class: 'CloneOption', noTags: false, reference: '', shallow: false],
+                            [$class: 'CleanBeforeCheckout'],
+                        ],
+                        userRemoteConfigs: [[url: 'https://github.com/Sam233124/REPO1_PIPELINE.git']] // Replace with your GitHub repo URL
+                    ])
                 }
+            }
+        }
+
+        stage('Overwrite HTML files on Server') {
+            steps {
+                // Copy HTML files from the checked-out repository to the server, overwriting existing files.
+                sh 'sshpass -p student scp -r /var/lib/jenkins/workspace/Sam_main/*.html student@192.168.1.8:/var/www/html/'
             }
         }
     }
