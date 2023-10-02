@@ -22,8 +22,12 @@ pipeline {
 
         stage('Overwrite HTML files on Server') {
             steps {
-                // Copy HTML files from the checked-out repository to the server, overwriting existing files.
-                sh 'sshpass -p student scp -o StrictHostKeyChecking=no  /var/lib/jenkins/workspace/Sam_main/index.html student@192.168.1.8:/var/www/html/'
+                // Copy HTML files from the checked-out repository to the server, using SSH key for authentication.
+                script {
+                    sh '''
+                        ssh-agent bash -c "ssh-add /path/to/your/ssh/key && scp /var/lib/jenkins/workspace/Sam_main/index.html student@192.168.1.8:/var/www/html/"
+                    '''
+                }
             }
         }
     }
