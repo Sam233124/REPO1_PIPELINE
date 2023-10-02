@@ -2,25 +2,19 @@ pipeline {
     agent any
     
     stages {
-        stage('Copy index.html to Remote Server') {
+        stage('Copy index.html to Apache Webserver') {
             steps {
                 script {
-                    // Define your SSH credentials ID (configure this in Jenkins credentials)
+                    // SSH-credentials ID (configure this in Jenkins credentials)
                     def sshCredentialsId = '74a84b86-0524-41f1-9c56-a63b2164a16b'
                     
-                    // Define the source and destination paths
-                    def sourcePath = 'path/to/your/index.html'
-                    def destinationPath = '/var/www/html'
-
-                    // Define the target server and SSH port
+                    // Doelserverinformatie
                     def remoteServer = '192.168.1.8'
-                    def sshPort = 22 // Default SSH port is 22
+                    def remoteUsername = 'student'
+                    def remotePassword = 'poepie'
 
-                    // Use the sshAgent to securely execute SSH commands
-                    sshAgent(credentials: [sshCredentialsId]) {
-                        // Execute the SCP command to copy the file to the remote server
-                        sh "scp -P ${sshPort} ${sourcePath} ${remoteServer}:${destinationPath}"
-                    }
+                    // SCP-commando met sshpass
+                    sh "sshpass -p ${remotePassword} scp -r /var/lib/jenkins/workspace/Pipeline_main/*.html ${remoteUsername}@${remoteServer}:/var/www/html/"
                 }
             }
         }
