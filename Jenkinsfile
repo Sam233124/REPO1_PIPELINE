@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Define your SSH credentials ID (configure this in Jenkins credentials)
-                    def sshCredentialsId = 'your-ssh-credentials-id'
+                    def sshCredentialsId = '74a84b86-0524-41f1-9c56-a63b2164a16b'
                     
                     // Define the source and destination paths
                     def sourcePath = 'path/to/your/index.html'
