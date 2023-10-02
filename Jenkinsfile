@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout from GitHub (main)') {
+        stage('Checkout from GitHub (productie)') {
             steps {
-                // Check out your code from the "main" branch on GitHub.
+                // Check out your code from the "productie" branch on GitHub.
                 script {
                     def scmVars = checkout([
                         $class: 'GitSCM',
-                        branches: [[name: 'main']],
+                        branches: [[name: 'productie']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [
                             [$class: 'CloneOption', noTags: false, reference: '', shallow: false],
