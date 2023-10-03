@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout from GitHub (main)') {
+        stage('Checkout from GitHub') {
             steps {
                 // Check out your code from the "main" branch on GitHub.
                 script {
@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Confirmation Dev') {
+        stage('Confirmation') {
             steps {
                 // Prompt for confirmation before proceeding.
                 input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
