@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        cron('*/1 * * * *') // Hier wordt elke minuut aangegeven
+    }
+
     stages {
         stage('Checkout from GitHub') {
             steps {
