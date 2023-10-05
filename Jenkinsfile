@@ -38,7 +38,6 @@ pipeline {
             }
         }
 
-
         stage('Deploy to ProductieServer') {
             steps {
                 sh 'sshpass -p student scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Sam_main/index.html student@192.168.1.8:/var/www/html/'
