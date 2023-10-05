@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('*/1 * * * *') // Hier wordt elke minuut aangegeven
-    }
-
     stages {
         stage('Checkout from GitHub') {
             steps {
@@ -37,6 +33,7 @@ pipeline {
                 input(id: 'confirmDeployment', message: 'Review the test environment. If everything looks good, approve for Development.', ok: 'Deploy')
             }
         }
+
 
         stage('Deploy to ProductieServer') {
             steps {
